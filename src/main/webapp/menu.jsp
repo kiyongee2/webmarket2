@@ -28,16 +28,16 @@
 				</c:otherwise>
 			</c:choose>
 				<li class="nav-item">
-					<a href="./products.jsp" class="nav-link">상품 목록</a>
+					<a href="/products.jsp" class="nav-link">상품 목록</a>
 				</li>
 				<li class="nav-item">
-					<a href="./addProduct.jsp" class="nav-link">상품 등록</a>
+					<a href="/addProduct.jsp" class="nav-link">상품 등록</a>
 				</li>
 				<li class="nav-item">
-					<a href="./editProduct.jsp?edit=update" class="nav-link">상품 수정</a>
+					<a href="/editProduct.jsp?edit=update" class="nav-link">상품 수정</a>
 				</li>
 				<li class="nav-item">
-					<a href="./editProduct.jsp?edit=delete" class="nav-link">상품 삭제</a>
+					<a href="/editProduct.jsp?edit=delete" class="nav-link">상품 삭제</a>
 				</li>
 			</ul>
 		</div>
