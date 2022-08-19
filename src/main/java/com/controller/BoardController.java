@@ -76,6 +76,13 @@ public class BoardController extends HttpServlet {
 			dao.insertBoard(board);
 			//view
 			nextPage = "/boardListAction.do";
+		}else if(command.equals("/boardView.do")) { //상세 보기 페이지 요청
+			String num = request.getParameter("num");
+			
+			Board board = dao.getBoard(Integer.parseInt(num));  //num은 숫자형으로 변환
+			//model - board
+			request.setAttribute("board", board);
+			nextPage = "/board/boardView.jsp";
 		}
 		
 		//nextPage를 포워딩 함

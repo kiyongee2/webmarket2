@@ -81,10 +81,10 @@ public class BoardDAO {
 	//로그인한 이름 가져오기
 	public String getNameByLogin(String id) {
 		String name = null;
-		conn = JDBCUtil.getConnection();
-		//member 테이블에 연결
-		String sql = "SELECT * FROM member WHERE id = ?";
 		try {
+			conn = JDBCUtil.getConnection();
+			//member 테이블에 연결
+			String sql = "SELECT * FROM member WHERE id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -97,6 +97,33 @@ public class BoardDAO {
 			JDBCUtil.close(conn, pstmt, rs);
 		}
 		return name;
+	}
+	
+	//게시글 상세 보기
+	public Board getBoard(int num) {
+		Board board = new Board();
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT * FROM board WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				board.setNum(rs.getInt("num"));
+				board.setName(rs.getString("name"));
+				board.setSubject(rs.getString("subject"));
+				board.setContent(rs.getString("content"));
+				board.setWriteDate(rs.getString("write_date"));
+				board.setHit(rs.getInt("hit"));
+				board.setId(rs.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return board;
 	}
 	
 	

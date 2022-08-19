@@ -26,7 +26,8 @@
 				<c:forEach items="${boardList}" var="board">
 				<tr>
 					<td><c:out value="${board.num}" /></td>
-					<td><c:out value="${board.subject}" /></td>
+					<td><a href="/boardView.do?num=<c:out value='${board.num}' />">
+						<c:out value="${board.subject}" /></a></td>
 					<td><c:out value="${board.name}" /></td>
 					<td><c:out value="${board.writeDate}" /></td>
 					<td><c:out value="${board.hit}" /></td>
