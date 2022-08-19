@@ -15,6 +15,7 @@ public class ProductRepository {
 	private ArrayList<Product> listOfProducts = new ArrayList<>();
 	//싱글톤 패턴으로 객체 생성
 	private static ProductRepository instance; 
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -61,18 +62,18 @@ public class ProductRepository {
 	}
 	
 	//상품 추가
-	public void addProduct(Product product) {
+	/*public void addProduct(Product product) {
 		listOfProducts.add(product);
-	}
+	}*/
 	
 	//목록 보기
 	public ArrayList<Product> getAllProducts(){
 		try {
-			conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM product";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
+			conn = JDBCUtil.getConnection();        //mysql에 연결
+			String sql = "SELECT * FROM product";   //조회 쿼리문
+			pstmt = conn.prepareStatement(sql);     //쿼리 처리 객체
+			rs = pstmt.executeQuery();              //반환 자료 가져옴
+			while(rs.next()){  //자료가 있으면
 				Product product = new Product();
 				product.setProductId(rs.getString("p_id"));
 				product.setPname(rs.getString("p_name"));
@@ -103,7 +104,7 @@ public class ProductRepository {
 			pstmt.setString(1, productId);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				product.setProductId(rs.getString("productId"));
+				product.setProductId(rs.getString("p_id"));
 				product.setPname(rs.getString("p_name"));
 				product.setUnitPrice(rs.getInt("p_unitPrice"));
 				product.setDescription(rs.getString("p_description"));
