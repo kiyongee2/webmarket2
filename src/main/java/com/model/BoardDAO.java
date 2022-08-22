@@ -126,7 +126,64 @@ public class BoardDAO {
 		return board;
 	}
 	
+	//게시글 조회수 
+	public void updateHit(int num) {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT hit FROM board WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			int hit = 0;
+			if(rs.next()) {
+				hit = rs.getInt("hit") + 1;
+			}
+			
+			//조회수 변경(update)
+			sql = "UPDATE board SET hit = ? WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hit);
+			pstmt.setInt(2, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt);
+		}
+	}
 	
+	//게시글 삭제
+	public void deleteBoard(int num) {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "DELETE FROM board WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();  //실행 함수
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt);
+		}
+	}
+	
+	//게시글 수정
+	public void updateBoard(Board board) {
+		conn = JDBCUtil.getConnection();
+		String sql = "UPDATE board SET subject = ?, content = ? WHERE num = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getSubject());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getNum());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+	}
+
 }//dao 클래스 닫기
 
 
